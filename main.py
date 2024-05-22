@@ -3,7 +3,7 @@ import logging
 from time import sleep
 
 from services.balances import update_balances
-from services.google_worker import GoogleStorage
+from services.google_storage import GoogleStorage
 from services.logger import init_logger
 from settings.settings import settings
 

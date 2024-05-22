@@ -25,7 +25,7 @@ async def update_balances(wallets: list[Wallet]) -> list[Wallet]:
     with open('settings/erc20abi.json', 'r') as abi:
         contract = w3.eth.contract(address=w3.to_checksum_address(settings.contract_address), abi=json.load(abi))
     decimals = await contract.functions.decimals().call()
-    for wallet_chunk in list_chunks(wallets, size=8):
+    for wallet_chunk in list_chunks(wallets, size=2):
         tasks = [fetch_balance(wallet, contract, w3, decimals) for wallet in wallet_chunk]
         await asyncio.gather(*tasks)
         await asyncio.sleep(1)
