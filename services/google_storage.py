@@ -20,9 +20,12 @@ class GoogleStorage:
     def get_wallets(self) -> list[Wallet]:
         wallets = []
         for index, row in enumerate(self._get_data()):
-            if row and is_address(address := row[0].strip()):
-                table_balance = float(row[1].replace(',', ''))
-                wallets.append(Wallet(address=address, row=index, table_balance=table_balance))
+            try:
+                if row and is_address(address := row[0].strip()):
+                    table_balance = float(row[1].replace(',', ''))
+                    wallets.append(Wallet(address=address, row=index, table_balance=table_balance))
+            except BaseException as error:
+                logging.error(f'Get wallet error: {error}')
         return wallets
 
     def update_wallets(self, wallets: list[Wallet]):

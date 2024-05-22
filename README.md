@@ -11,3 +11,5 @@ SHEET_ID=
 SPREADSHEET_ID=
 CONTRACT_ADDRESS=
 ```
+
+Also need google credentials.json in root directory
