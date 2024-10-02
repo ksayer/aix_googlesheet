@@ -28,7 +28,4 @@ def balance_watcher():
 
 
 if __name__ == '__main__':
-    balance_thread = Thread(target=balance_watcher)
-    balance_thread.start()
-
-    start_api_server()
+    balance_watcher()

@@ -15,5 +15,8 @@ class Settings(BaseSettings):
     sleep: int = 10 * 60
     eth_rpc: str
 
+    redis_host: str = 'localhost'
+    redis_port: int = 6379
+
 
 settings: Settings = Settings()
