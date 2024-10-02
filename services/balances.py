@@ -31,3 +31,10 @@ async def update_balances(wallets: list[Wallet]) -> list[Wallet]:
         await asyncio.sleep(1)
 
     return wallets
+
+
+async def check_balance(wallet_address: str) -> int:
+    w3 = AsyncWeb3(Web3.AsyncHTTPProvider(settings.eth_rpc))
+    with open('settings/erc20abi.json', 'r') as abi:
+        contract = w3.eth.contract(address=w3.to_checksum_address(settings.contract_address), abi=json.load(abi))
+    return await contract.functions.balanceOf(w3.to_checksum_address(wallet_address)).call()
