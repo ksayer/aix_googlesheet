@@ -12,6 +12,7 @@ services:
       - "7419:8000"
     depends_on:
       - redis
+    restart: always
     env_file:
       .env
 
@@ -24,10 +25,12 @@ services:
       - ./:/app
     depends_on:
       - redis
+    restart: always
     env_file:
       .env
 
   redis:
     image: "redis:alpine"
-    ports:
-      - "6379:6379"
+    expose:
+      - "6379"
+    restart: always
