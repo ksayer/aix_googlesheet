@@ -9,16 +9,15 @@ from services.logger import init_logger
 from settings.settings import settings
 
 
-def balance_watcher():
+async def balance_watcher():
     init_logger()
     logging.info('Start AGIX balance watcher')
     while True:
         try:
             storage = GoogleStorage(settings.spreadsheet_id, settings.sheet_id)
             wallets = storage.get_wallets()
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            updated_wallets = loop.run_until_complete(update_balances(wallets))
+            await update_balances(wallets)
+            updated_wallets = storage.update_wallets(wallets)
             storage.update_wallets(updated_wallets)
             logging.info(f'Successfully updated... fall asleep for {settings.sleep} seconds \n')
         except BaseException as error:
@@ -26,6 +25,5 @@ def balance_watcher():
         sleep(settings.sleep)
 
 
-
 if __name__ == '__main__':
-    balance_watcher()
+    asyncio.run(balance_watcher())
