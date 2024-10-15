@@ -17,8 +17,7 @@ async def balance_watcher():
             storage = GoogleStorage(settings.spreadsheet_id, settings.sheet_id)
             wallets = storage.get_wallets()
             await update_balances(wallets)
-            updated_wallets = storage.update_wallets(wallets)
-            storage.update_wallets(updated_wallets)
+            storage.update_wallets(wallets)
             logging.info(f'Successfully updated... fall asleep for {settings.sleep} seconds \n')
         except BaseException as error:
             logging.exception(f'ERROR: {error}')
